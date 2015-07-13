@@ -1,4 +1,4 @@
-package co.edu.uniandes.ecos.statusquo.security.Utils;
+package co.edu.uniandes.ecos.statusquo.web.security.utils;
 
 import java.util.Collection;
 import java.util.Iterator;

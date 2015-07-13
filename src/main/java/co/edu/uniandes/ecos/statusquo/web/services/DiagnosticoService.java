@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.ecos.statusquo.services;
+package co.edu.uniandes.ecos.statusquo.web.services;
 
 import co.edu.uniandes.ecos.statusquo.business.DiagnosticoEJB;
 import co.edu.uniandes.ecos.statusquo.persistence.entities.Diagnostico;

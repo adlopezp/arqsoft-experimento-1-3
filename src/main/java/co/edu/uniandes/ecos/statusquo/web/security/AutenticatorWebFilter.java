@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.ecos.statusquo.security;
+package co.edu.uniandes.ecos.statusquo.web.security;
 
 import java.io.IOException;
 import javax.servlet.ServletRequest;

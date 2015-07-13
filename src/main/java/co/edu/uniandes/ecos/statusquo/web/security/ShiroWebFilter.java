@@ -2,21 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.ecos.statusquo.security;
+package co.edu.uniandes.ecos.statusquo.web.security;
 
-import co.edu.uniandes.ecos.statusquo.security.Utils.ShiroSecured;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresGuest;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
@@ -25,8 +22,8 @@ import org.apache.shiro.subject.Subject;
  *
  * @author Dev
  */
-@Interceptor
-@ShiroSecured
+//@Interceptor
+//@ShiroSecured
 public class ShiroWebFilter implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,14 +57,13 @@ public class ShiroWebFilter implements Serializable {
 
     private static boolean hasAnnotation(Class<?> c, Method m, Class<? extends Annotation> a) {
         return m.isAnnotationPresent(a)
-            || c.isAnnotationPresent(a)
-            || c.getSuperclass().isAnnotationPresent(a);
+                || c.isAnnotationPresent(a)
+                || c.getSuperclass().isAnnotationPresent(a);
     }
 
     private static <A extends Annotation> A getAnnotation(Class<?> c, Method m, Class<A> a) {
         return m.isAnnotationPresent(a) ? m.getAnnotation(a)
-            : c.isAnnotationPresent(a) ? c.getAnnotation(a)
-            : c.getSuperclass().getAnnotation(a);
+                : c.isAnnotationPresent(a) ? c.getAnnotation(a)
+                : c.getSuperclass().getAnnotation(a);
     }
-
 }

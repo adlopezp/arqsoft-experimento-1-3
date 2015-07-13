@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.ecos.statusquo.security.Utils;
+package co.edu.uniandes.ecos.statusquo.web.security.utils;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

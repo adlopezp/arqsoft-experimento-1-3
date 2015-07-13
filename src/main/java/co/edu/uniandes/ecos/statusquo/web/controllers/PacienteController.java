@@ -1,9 +1,9 @@
-package co.edu.uniandes.ecos.statusquo.controllers;
+package co.edu.uniandes.ecos.statusquo.web.controllers;
 
 import javax.faces.context.FacesContext;
 
 import co.edu.uniandes.ecos.statusquo.business.PacienteEJB;
-import co.edu.uniandes.ecos.statusquo.criteria.PacienteCriteria;
+import co.edu.uniandes.ecos.statusquo.web.criteria.PacienteCriteria;
 import co.edu.uniandes.ecos.statusquo.persistence.entities.Paciente;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;

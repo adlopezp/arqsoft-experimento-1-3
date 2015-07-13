@@ -4,7 +4,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">		
     <application>
-        <action-listener>co.edu.uniandes.ecos.statusquo.security.Utils.ResetInputAjaxActionListener</action-listener>
+        <action-listener>co.edu.uniandes.ecos.statusquo.web.security.utils.ResetInputAjaxActionListener</action-listener>
         
         <locale-config>            
             <default-locale>es</default-locale>        
@@ -12,10 +12,10 @@
        
     </application>
     <navigation-rule>
-        <from-view-id>/faces/login.xhtml</from-view-id>
+        <from-view-id>/site/login.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>mostrarPrincipal</from-outcome>
-            <to-view-id>/faces/index.xhtml</to-view-id>
+            <to-view-id>/site/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

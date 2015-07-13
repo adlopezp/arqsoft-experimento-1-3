@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.ecos.statusquo.controllers;
+package co.edu.uniandes.ecos.statusquo.web.controllers;
 
-import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -25,25 +24,23 @@ import org.omnifaces.util.Faces;
 @SessionScoped
 public class LoginController {
 
-    public static final String HOME_URL = "faces/index.xhtml";
+    public static final String HOME_URL = "site/index.xhtml";
     public static final String key = "statusquo";
-
     private String username;
     private String password;
     private boolean remember;
 
-    public void login(){
+    public void login() {
         try {
             SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password, remember));
             SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
             Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
-        }
-        catch (AuthenticationException e) {
+        } catch (AuthenticationException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Autenticacion incorrecta"));
-            e.printStackTrace(); 
-        }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Ha ocurrido un error "+e.getMessage()));
-            e.printStackTrace(); 
+            e.printStackTrace();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Ha ocurrido un error " + e.getMessage()));
+            e.printStackTrace();
         }
     }
 
@@ -70,6 +67,4 @@ public class LoginController {
     public void setRemember(boolean remember) {
         this.remember = remember;
     }
-
-    
 }

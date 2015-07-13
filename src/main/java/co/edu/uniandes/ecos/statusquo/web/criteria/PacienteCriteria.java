@@ -1,4 +1,4 @@
-package co.edu.uniandes.ecos.statusquo.criteria;
+package co.edu.uniandes.ecos.statusquo.web.criteria;
 
 import java.util.Date;
 

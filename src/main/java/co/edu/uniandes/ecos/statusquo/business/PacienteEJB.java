@@ -6,7 +6,7 @@ package co.edu.uniandes.ecos.statusquo.business;
 
 import co.edu.uniandes.ecos.statusquo.persistence.dao.PacienteDAO;
 import co.edu.uniandes.ecos.statusquo.persistence.entities.Paciente;
-import co.edu.uniandes.ecos.statusquo.security.Utils.ShiroSecured;
+import co.edu.uniandes.ecos.statusquo.web.security.utils.ShiroSecured;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;

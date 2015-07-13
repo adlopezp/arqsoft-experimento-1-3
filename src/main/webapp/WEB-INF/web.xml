@@ -15,7 +15,7 @@
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>co.edu.uniandes.ecos.statusquo.services</param-value>
+            <param-value>co.edu.uniandes.ecos.statusquo.web.services</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -46,7 +46,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>/site/*</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Resource Servlet</servlet-name>
@@ -58,7 +58,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>jersey-services</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/service/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -82,7 +82,7 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>    
     <welcome-file-list>
-        <welcome-file>/faces/login.xhtml</welcome-file>
+        <welcome-file>/site/login.xhtml</welcome-file>
     </welcome-file-list>
     <!--<error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
