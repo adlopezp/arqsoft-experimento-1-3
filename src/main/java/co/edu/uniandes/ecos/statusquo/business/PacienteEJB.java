@@ -6,6 +6,7 @@ package co.edu.uniandes.ecos.statusquo.business;
 
 import co.edu.uniandes.ecos.statusquo.persistence.dao.PacienteDAO;
 import co.edu.uniandes.ecos.statusquo.persistence.entities.Paciente;
+import co.edu.uniandes.ecos.statusquo.security.Utils.ShiroSecured;
 import java.util.HashMap;
 import java.util.List;
 import javax.ejb.EJB;
@@ -17,7 +18,7 @@ import javax.ejb.Stateless;
  * @author Dev
  */
 @Stateless
-@LocalBean
+@ShiroSecured
 public class PacienteEJB {
 
     @EJB

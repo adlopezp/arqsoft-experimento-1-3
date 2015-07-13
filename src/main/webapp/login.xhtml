@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <style type="text/css">
+            html, body {height:60%;}
+            html {display:table; width:75%;margin: 150px}
+            body {display:table-cell;text-align: left; vertical-align:middle;}
+        </style>
+        <script type="text/javascript">
+            /* Eliminar el click derecho */
+            $(document).bind("contextmenu",function(e){
+                return false;
+            });
+            /*---------------------------*/
+        </script>
+        <title>Login</title>
+    </h:head>
+    <tbody>
+        <p:panel>
+            <h2>Bienvenido</h2>
+            <p>Para ingresar digite el usuario y contraseña asignado</p>
+            <h:form id="formLogin">
+                <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                    <tr>
+                        <td>
+                            <p:outputLabel for="iptUsuario" id="optUsuario" value="Usuario" />
+                        </td>
+                        <td>
+                            <p:inputText id="iptUsuario" value="#{login.username}" required="true"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel for="iptNuevaContrasena" id="optNuevaContrasena"  value="Password" />
+                        </td>
+                        <td>
+                            <p:password id="iptNuevaContrasena" value="#{login.password}" required="true" />
+                        </td>
+                    </tr>
+                    <p:columnGroup >
+                        <td><p:outputLabel for="sbcDirectorioActivo" id="optSelecionaDirAct" value="Recordarme?"  /></td>
+                        <td><p:selectBooleanCheckbox id="sbcDirectorioActivo" value="#{login.remember}" /></td>
+                    </p:columnGroup>
+                    <tr><td colspan="2" align="center">
+                            <p:commandButton id="btnIngresar" value="Ingresar" actionListener="#{login.login()}" update=":headerForm :formLogin" />
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </p:panel>
+        <h:form id="headerForm" prependId="false">
+            <p:growl id="growl" showDetail="true" />
+            <p:messages id="messages" showDetail="true"/> 
+        </h:form>
+    </tbody>
+</html>

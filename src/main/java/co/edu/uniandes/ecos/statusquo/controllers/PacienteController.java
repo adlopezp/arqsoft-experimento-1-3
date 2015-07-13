@@ -1,17 +1,17 @@
 package co.edu.uniandes.ecos.statusquo.controllers;
 
-import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import co.edu.uniandes.ecos.statusquo.business.PacienteEJB;
 import co.edu.uniandes.ecos.statusquo.criteria.PacienteCriteria;
 import co.edu.uniandes.ecos.statusquo.persistence.entities.Paciente;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PacienteController {
 	
 	@EJB
