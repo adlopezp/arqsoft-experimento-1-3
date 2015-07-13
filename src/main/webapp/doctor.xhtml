@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Doctor</title>
+</h:head>
+<h:body>
+	<h:form id="main_form">
+		<p:tabView orientation="left">
+        	<p:tab title="Buscar Paciente">
+		         <ui:include src="/WEB-INF/doctor/buscarPaciente.xhtml" />
+        	</p:tab>
+        	
+        	<p:tab title="Agregar Paciente">
+		         <ui:include src="/WEB-INF/doctor/agregarPaciente.xhtml" />
+        	</p:tab>
+    	</p:tabView>
+   
+    		
+	</h:form>
+</h:body>
+
+</html>
