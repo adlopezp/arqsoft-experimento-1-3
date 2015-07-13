@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.shiro.SecurityUtils;
@@ -34,8 +35,10 @@ public class LoginService {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response userAuth(String username, String password, boolean remember) {
-        Response r = null;
+    public Response userAuth(@QueryParam("username") final String username,
+            @QueryParam("password") final String password,
+            @QueryParam("remember") final boolean remember) {
+        Response r;
         final UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         token.setRememberMe(remember);
         SecurityUtils.setSecurityManager(sm);
@@ -44,7 +47,7 @@ public class LoginService {
             currentUser.login(token);
             r = Response.ok().entity(token).build();
         } catch (IncorrectCredentialsException ice) {
-            System.out.println("Incorrect username/password!");
+            r = Response.status(401).entity("Username/password Incorrect").build();
         }
 
         return r;
