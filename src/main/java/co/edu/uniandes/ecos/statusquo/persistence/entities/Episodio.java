@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Episodio.findByNiveldolor", query = "SELECT e FROM Episodio e WHERE e.nivelDolor = :niveldolor"),
     @NamedQuery(name = "Episodio.findByPatronessueno", query = "SELECT e FROM Episodio e WHERE e.patronesSueno = :patronessueno"),
     @NamedQuery(name = "Episodio.findByActividades", query = "SELECT e FROM Episodio e WHERE e.actividades = :actividades"),
-    @NamedQuery(name = "Episodio.findByPaciente", query = "SELECT e FROM Episodio e WHERE e.paciente = :paciente")})
+    @NamedQuery(name = "Episodio.findByPaciente", query = "SELECT e FROM Episodio e WHERE e.paciente = :paciente"),
+    @NamedQuery(name = "Episodio.findByIdRangoFecha", query = "SELECT e FROM Episodio e WHERE e.paciente = :paciente and e.fecha between :fechaInicio and :fechaFin")})
 public class Episodio implements Serializable {
 
     private static final long serialVersionUID = 1L;

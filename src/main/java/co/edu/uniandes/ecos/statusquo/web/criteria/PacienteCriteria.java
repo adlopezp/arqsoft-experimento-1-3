@@ -1,5 +1,6 @@
 package co.edu.uniandes.ecos.statusquo.web.criteria;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PacienteCriteria {
@@ -34,5 +35,14 @@ public class PacienteCriteria {
 		this.fechaFin = fechaFin;
 	}
 	
+	public String getFechaInicioString() {
+		if (fechaInicio == null) return null;
+		return new SimpleDateFormat("yyyyMMdd").format(fechaInicio);
+	}
+	
+	public String getFechaFinString() {
+		if (fechaFin == null) return null;
+		return new SimpleDateFormat("yyyyMMdd").format(fechaFin);
+	}
 
 }

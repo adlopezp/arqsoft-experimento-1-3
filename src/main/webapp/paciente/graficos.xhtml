@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<f:metadata>
+		<f:viewParam name="pacienteId" value="#{graficosController.idPaciente}"/>
+		<f:viewParam name="fInicio" value="#{graficosController.fechaInicio}">
+			<f:convertDateTime pattern="yyyyMMddHHmmss" />
+		</f:viewParam>
+		<f:viewParam name="fFin" value="#{graficosController.fechaFin}">
+			<f:convertDateTime pattern="yyyyMMddHHmmss" />
+		</f:viewParam>
+		<f:viewAction action="#{graficosController.cargarDatos()}"/>
+	</f:metadata>
+<h:head>
+	<title>Evolución del dolor</title>
+</h:head>
+<h:body>
+	<h:panelGroup rendered="#{empty graficosController.idPaciente}">
+		<h1>No es posible mostrar datos sin un paciente asociado</h1>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{not empty graficosController.idPaciente}">
+		<p:chart type="line" model="#{graficosController.datosGrafico}" style="height:300px;"/>
+	</h:panelGroup>
+</h:body>
+
+</html>
