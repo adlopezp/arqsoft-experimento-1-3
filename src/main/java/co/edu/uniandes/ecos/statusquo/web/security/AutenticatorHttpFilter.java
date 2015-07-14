@@ -34,8 +34,8 @@ public class AutenticatorHttpFilter extends AuthenticatingFilter {
         final String authorizationHeader = httpRequest.getHeader("Autorizacion");
         UsernamePasswordToken token = new UsernamePasswordToken();
 
-        System.out.println("CREDENCIALES " + credencialesHeader);
-        System.out.println("AUTORIZACION " + authorizationHeader);
+//        System.out.println("CREDENCIALES " + credencialesHeader);
+//        System.out.println("AUTORIZACION " + authorizationHeader);
 
         if (credencialesHeader != null && !credencialesHeader.isEmpty()) {
             final StringBuffer peticionBuffer = new StringBuffer();
@@ -46,7 +46,7 @@ public class AutenticatorHttpFilter extends AuthenticatingFilter {
                 peticionBuffer.append(Arrays.toString(entry.getValue()));
                 peticionBuffer.append(';');
             }
-            System.out.println("PETICION " + peticionBuffer.toString());
+//            System.out.println("PETICION " + peticionBuffer.toString());
             if (authorizationHeader.equals(new Sha512Hash(peticionBuffer.toString(), key, 1024).toString())) {
 
                 try {
@@ -56,7 +56,7 @@ public class AutenticatorHttpFilter extends AuthenticatingFilter {
                     Map jsonData = parser.parseJson(credencialesHeader);
                     token = new UsernamePasswordToken((String) jsonData.get("username"), (String) jsonData.get("password"));
                     token.setRememberMe(Boolean.valueOf((String) jsonData.get("rememberMe")));
-                    System.out.println("AUTENTICÓ");
+//                    System.out.println("AUTENTICÓ");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
