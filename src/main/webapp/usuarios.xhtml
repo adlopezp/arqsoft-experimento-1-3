@@ -1,25 +1,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Doctor</title>
-</h:head>
-<h:body>
-	<h:form id="main_form">
-		<p:tabView orientation="left">
-        	<p:tab title="Buscar Paciente">
-		         <ui:include src="/WEB-INF/doctor/buscarPaciente.xhtml" />
-        	</p:tab>
-        	
-        	<p:tab title="Agregar Paciente">
-		         <ui:include src="/WEB-INF/doctor/agregarPaciente.xhtml" />
-        	</p:tab>
-    	</p:tabView>
-   
-    		
-	</h:form>
-</h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Usuarios</title>
+    </h:head>
+    <h:body>
+        <h:form id="main_form">
+            <span style="font-size: 24px; font-family: Verdana,Arial,sans-serif;">Usuarios</span>
+            <br/>
+            <br/>
+            <p:dataTable value="#{usuarioBean.usuarios}" var="usuario" style="width: 1000px;">
+                <p:column headerText="Documento">
+                    <h:outputText value="#{usuario.identificacion}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{usuario.primerNombre} #{usuario.segundoNombre} #{usuario.primerApellido} #{usuario.segundoApellido}"/>
+                </p:column>
+                <p:column headerText="Usuario">
+                    <h:outputText value="#{usuario.usuario}"/>
+                </p:column>
+                <p:column headerText="Rol">
+                    <h:outputText value="#{usuario.rol}"/>
+                </p:column>
+                <p:column headerText="Ver" style="width: 50px;">
+                    <p:commandButton icon="ui-icon-pencil" actionListener="#{usuarioBean.seleccionarUsuario(usuario)}"/>
+                </p:column>
+            </p:dataTable>
+            <br/>
+            <br/>
+            <p:commandButton value="Nuevo Usuario" actionListener="#{usuarioBean.nuevoUsuario()}"/>
+        </h:form>
+    </h:body>
 
 </html>

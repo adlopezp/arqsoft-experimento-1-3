@@ -4,13 +4,19 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Laboratorio 3</title>
+        <title>Indice</title>
     </h:head>
     <h:body>
+        <span style="font-size: 24px; font-family: Verdana,Arial,sans-serif;">Menu Principal</span>
+        <br/>
+        <br/>
         <h:form id="formLogin">
-            <p><h:link value="Doctor" outcome="doctor"/></p>
-            <p><h:link value="Paciente" outcome="paciente"/></p>
-            <p:commandButton actionListener="#{login.logout}" value="Cerrar Sesión"/>
+            <p:tieredMenu>
+                <p:menuitem value="Doctor" outcome="doctor"/>
+                <p:menuitem value="Paciente" outcome="paciente" />
+                <p:menuitem value="Usuarios" outcome="usuarios" />
+                <p:menuitem value="Cerrar Sesión" actionListener="#{login.logout}" />
+            </p:tieredMenu>
         </h:form>
     </h:body>
 

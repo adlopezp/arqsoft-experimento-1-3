@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Usuarios</title>
+    </h:head>
+    <h:body>
+        <h:form id="main_form">
+            <span style="font-size: 24px; font-family: Verdana,Arial,sans-serif;">Usuarios</span>
+            <br/>
+            <br/>
+            <p:messages autoUpdate="true"/>
+            <br/>
+            <p:panelGrid style="width: 1000px;">
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Documento"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.identificacion}" required="true" label="Documento">
+                            <f:validateLongRange />
+                        </p:inputText>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="Usuario"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.usuario}" required="true" label="Usuario"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Contraseña"/>
+                    </p:column>
+                    <p:column>
+                        <p:password value="#{usuarioBean.pacienteSeleccionado.password}" required="true" label="Contraseña"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="Contraseña Nuevamente"/>
+                    </p:column>
+                    <p:column>
+                        <p:password value="#{usuarioBean.contrasenaNueva}" required="true" label="Contraseña Nuevamente"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Primer Nombre"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.primerNombre}" required="true" label="Primer Nombre"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="Segundo Nombre"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.segundoNombre}" label="Segundo Nombre"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Primer Apellido"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.primerApellido}" required="true" label="Primer Apellido"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="Segundo Apellido"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.segundoApellido}" label="Segundo Apellido"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Rol"/>
+                    </p:column>
+                    <p:column>
+                        <p:selectOneMenu value="#{usuarioBean.pacienteSeleccionado.rol}" required="true">
+                            <f:selectItem itemValue="Administrador" itemLabel="Administrador"/>
+                            <f:selectItem itemValue="Doctor" itemLabel="Doctor"/>
+                            <f:selectItem itemValue="Paciente" itemLabel="Paciente"/>
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="Email"/>
+                    </p:column>
+                    <p:column>
+                        <p:inputText value="#{usuarioBean.pacienteSeleccionado.correoElectronico}" required="true" label="Email"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+            <br/>
+            <br/>
+            <p:commandButton value="Guardar" actionListener="#{usuarioBean.guardarUsuario()}"/>
+        </h:form>
+    </h:body>
+
+</html>
