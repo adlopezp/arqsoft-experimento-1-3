@@ -4,7 +4,6 @@
  */
 package co.edu.uniandes.ecos.statusquo.web.security;
 
-import co.edu.uniandes.ecos.statusquo.web.security.utils.ShiroToken;
 import com.codesnippets4all.json.parsers.JSONParser;
 import com.codesnippets4all.json.parsers.JsonParserFactory;
 import java.util.Arrays;
@@ -30,44 +29,41 @@ public class AutenticatorHttpFilter extends AuthenticatingFilter {
 
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        HttpServletRequest httpRequest = WebUtils.toHttp(request);
-        String credencialesHeader = httpRequest.getHeader("Credenciales");
-        String authorizationHeader = httpRequest.getHeader("Autorizacion");
+        final HttpServletRequest httpRequest = WebUtils.toHttp(request);
+        final String credencialesHeader = httpRequest.getHeader("Credenciales");
+        final String authorizationHeader = httpRequest.getHeader("Autorizacion");
+        UsernamePasswordToken token = new UsernamePasswordToken();
 
-        System.out.println("1 " + credencialesHeader);
-        System.out.println("2 " + authorizationHeader);
-        if (credencialesHeader == null || credencialesHeader.length() == 0) {
-            // Create an empty authentication token since there is no
-            // Authorization header.
-            return new ShiroToken("");
+        System.out.println("CREDENCIALES " + credencialesHeader);
+        System.out.println("AUTORIZACION " + authorizationHeader);
+
+        if (credencialesHeader != null && !credencialesHeader.isEmpty()) {
+            final StringBuffer peticionBuffer = new StringBuffer();
+            final Map<String, String[]> map = request.getParameterMap();
+            for (Entry<String, String[]> entry : map.entrySet()) {
+                peticionBuffer.append(entry.getKey());
+                peticionBuffer.append(':');
+                peticionBuffer.append(Arrays.toString(entry.getValue()));
+                peticionBuffer.append(';');
+            }
+            System.out.println("PETICION " + peticionBuffer.toString());
+            if (authorizationHeader.equals(new Sha512Hash(peticionBuffer.toString(), key, 1024).toString())) {
+
+                try {
+                    JsonParserFactory factory = JsonParserFactory.getInstance();
+                    JSONParser parser = factory.newJsonParser();
+
+                    Map jsonData = parser.parseJson(credencialesHeader);
+                    token = new UsernamePasswordToken((String) jsonData.get("username"), (String) jsonData.get("password"));
+                    token.setRememberMe(Boolean.valueOf((String) jsonData.get("rememberMe")));
+                    System.out.println("AUTENTICÓ");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            }
         }
-
-        final StringBuffer peticionBuffer = new StringBuffer();
-        final Map<String, String[]> map = request.getParameterMap();
-        for (Entry<String, String[]> entry : map.entrySet()) {
-            peticionBuffer.append(entry.getKey());
-            peticionBuffer.append(':');
-            peticionBuffer.append(Arrays.toString(entry.getValue()));
-            peticionBuffer.append(';');
-        }
-
-        System.out.println("PETICION " + peticionBuffer.toString());
-
-        if (!peticionBuffer.toString().isEmpty() &&!authorizationHeader.equals(new Sha512Hash(peticionBuffer.toString(), key, 1024).toString())) {
-            return new ShiroToken("");
-        }
-        try {
-            JsonParserFactory factory = JsonParserFactory.getInstance();
-            JSONParser parser = factory.newJsonParser();
-
-            Map jsonData = parser.parseJson(credencialesHeader);
-            return new UsernamePasswordToken((String)jsonData.get("username"), (String)jsonData.get("password"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("PASO");
-
-        return new ShiroToken(credencialesHeader);
+        return token;
     }
 
     @Override
