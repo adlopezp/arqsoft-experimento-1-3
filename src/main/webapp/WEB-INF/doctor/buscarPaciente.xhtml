@@ -5,66 +5,123 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<h:form id="buscarPacienteForm">
-	<p:growl id="messages" showDetail="true"></p:growl>
-	<h:panelGrid columns="2" cellpadding="10">
-		<h:outputLabel value="Número de documento *" for="identificacion"/>
-		<p:inputText value="#{pacienteController.pacienteCriteria.identificacion}" 
-			id="identificacion" required="true" requiredMessage="El número de documento es obligatorio"/>
-		<h:outputLabel value="Episidios desde" for="desde"/>
-		<p:calendar value="#{pacienteController.pacienteCriteria.fechaInicio}" id="desde"/>
-		<h:outputLabel value="Episidios hasta" for="hasta"/>
-		<p:calendar value="#{pacienteController.pacienteCriteria.fechaFin}" id="hasta"/>
-		<p:commandButton value="Buscar" actionListener="#{pacienteController.buscarPaciente}" update="messages, pacienteResult"/>
-	</h:panelGrid>
-	
-	<p:separator/>
-	
-	<h:panelGrid id="pacienteResult" columns="4" cellpadding="10">
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Primer nombre" />
-			<p:inputText value="#{pacienteController.pacienteResult.primerNombre}" disabled="true"/>
+	<h:form id="buscarPacienteForm">
+		<p:growl id="messages" showDetail="true"></p:growl>
+		<h:panelGrid columns="2" cellpadding="10">
+			<h:outputLabel value="Número de documento *" for="identificacion" />
+			<p:inputText
+				value="#{pacienteController.pacienteCriteria.identificacion}"
+				id="identificacion" required="true"
+				requiredMessage="El número de documento es obligatorio" />
+				
+			<h:outputLabel value="Episidios desde *" for="desde" />
+			<p:calendar id="desde"
+				value="#{pacienteController.pacienteCriteria.fechaInicio}"
+				required="true" requiredMessage="Fecha inicial es obligatoria" />
+				
+			<h:outputLabel value="Episidios hasta *" for="hasta" />
+			<p:calendar id="hasta"
+				value="#{pacienteController.pacienteCriteria.fechaFin}"
+				required="true" requiredMessage="Fecha final es obligatoria" />
+			<p:commandButton value="Buscar"
+				actionListener="#{pacienteController.buscarPaciente}"
+				update="messages, pacienteResult, tablaEpisodios, pGridTabla" />
 		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Segundo nombre" />
-			<p:inputText value="#{pacienteController.pacienteResult.segundoNombre}" disabled="true"/>
+
+		<p:separator />
+
+		<!--  Resultados Paciente -->
+		<h:panelGrid id="pacienteResult" columns="4" cellpadding="10">
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Primer nombre" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.primerNombre}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Segundo nombre" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.segundoNombre}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Primer apellido" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.primerApellido}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Segundo apellido" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.segundoApellido}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Número de documento" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.identificacion}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Nombre de usuario" />
+				<p:inputText value="#{pacienteController.pacienteResult.usuario}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Correo electrónico" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.correoElectronico}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="1"
+				rendered="#{not empty pacienteController.pacienteResult}">
+				<h:outputLabel value="Número de Episodios" />
+				<p:inputText
+					value="#{pacienteController.pacienteResult.episodios.size()}"
+					disabled="true" />
+			</h:panelGrid>
+
+			<p:button value="Mostrar Gráficos" icon="ui-icon-search"
+				outcome="paciente/graficos" target="_blank"
+				rendered="#{not empty pacienteController.pacienteResult}"
+				disabled="#{pacienteController.pacienteResult.episodios.size() == 0}">
+
+				<f:param name="pacienteId"
+					value="#{pacienteController.pacienteResult.id}" />
+				<f:param name="fInicio"
+					value="#{pacienteController.pacienteCriteria.getFechaInicioString()}"
+					disable="#{empty pacienteController.pacienteCriteria.fechaInicio}" />
+				<f:param name="fFin"
+					value="#{pacienteController.pacienteCriteria.getFechaFinString()}"
+					disable="#{empty pacienteController.pacienteCriteria.fechaFin}" />
+			</p:button>
+
 		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Primer apellido" />
-			<p:inputText value="#{pacienteController.pacienteResult.primerApellido}" disabled="true"/>
-		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Segundo apellido" />
-			<p:inputText value="#{pacienteController.pacienteResult.segundoApellido}" disabled="true"/>
-		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Número de documento" />
-			<p:inputText value="#{pacienteController.pacienteResult.identificacion}" disabled="true"/>
-		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Nombre de usuario" />
-			<p:inputText value="#{pacienteController.pacienteResult.usuario}" disabled="true"/>
-		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Correo electrónico" />
-			<p:inputText value="#{pacienteController.pacienteResult.correoElectronico}" disabled="true"/>
-		</h:panelGrid>
-		
-		<h:panelGrid columns="1" rendered="#{not empty pacienteController.pacienteResult}">
-			<h:outputLabel value="Número de Episodios" />
-			<p:inputText value="#{pacienteController.pacienteResult.episodios.size()}" disabled="true"/>
-		</h:panelGrid>
-		
-		<p:button value="Ver episodios" icon="ui-icon-search">
-			<f:param name="pacienteId" value="#{pacienteController.pacienteResult.id}"/>
-		</p:button>
-	</h:panelGrid>	
-</h:form>
+
+		<h:panelGroup>
+			<!--  #{pacienteController.pacienteResult.episodios.size() == 0} -->
+			<!-- Tabla episidios -->
+			<h:panelGrid id="pGridTabla">
+				<ui:include src="/WEB-INF/doctor/tablaEpisodios.xhtml" />
+			</h:panelGrid>
+		</h:panelGroup>
+
+
+
+	</h:form>
 
 </ui:composition>

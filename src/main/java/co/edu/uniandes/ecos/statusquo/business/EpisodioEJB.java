@@ -6,9 +6,13 @@ package co.edu.uniandes.ecos.statusquo.business;
 
 import co.edu.uniandes.ecos.statusquo.persistence.dao.EpisodioDAO;
 import co.edu.uniandes.ecos.statusquo.persistence.entities.Episodio;
+import co.edu.uniandes.ecos.statusquo.persistence.entities.Paciente;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -22,7 +26,7 @@ import javax.ejb.Stateless;
 public class EpisodioEJB {
 
     @EJB
-    EpisodioDAO facade;
+    private EpisodioDAO facade;
 
     public Episodio consultarId(Long id) throws Exception {
         return facade.find(id);
@@ -31,7 +35,7 @@ public class EpisodioEJB {
     public List<Episodio> consultarLista(final Long pacienteId) throws Exception {
         final HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("paciente", pacienteId);
-        return facade.findByNamedQuery("Episodios.findByPaciente", params);
+        return facade.findByNamedQuery("Episodio.findByPaciente", params);
     }
     
     public List<Episodio> consultarFechas(final Date fechaInicio,final Date fechaFin) throws Exception {
@@ -39,6 +43,16 @@ public class EpisodioEJB {
         params.put("fechaInicio", fechaInicio);
         params.put("fechaFin", fechaFin);
         return facade.findByNamedQuery("Episodio.findByRangoFecha", params);
+    }
+    
+    public List<Episodio> consultarFechasPaciente(final Long pacienteId, 
+    											  final Date fechaInicio,
+    											  final Date fechaFin){
+    	final Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("paciente", new Paciente(pacienteId));
+    	params.put("fechaInicio", fechaInicio);
+        params.put("fechaFin", fechaFin);
+    	return facade.findByNamedQuery("Episodio.findByIdRangoFecha", params);
     }
 
     public void save(final Episodio entidad) throws Exception {
