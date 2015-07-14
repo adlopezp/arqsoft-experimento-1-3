@@ -4,6 +4,7 @@
  */
 package co.edu.uniandes.ecos.statusquo.web.controllers;
 
+import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -41,6 +42,17 @@ public class LoginController {
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Ha ocurrido un error " + e.getMessage()));
             e.printStackTrace();
+        }
+    }
+
+    public void logout() {
+        System.out.println("NADA");
+        SecurityUtils.getSubject().logout();
+        Faces.invalidateSession();
+        try {
+            Faces.redirect(HOME_URL);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
