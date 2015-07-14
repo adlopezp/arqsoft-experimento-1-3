@@ -7,6 +7,7 @@ package co.edu.uniandes.ecos.statusquo.web.security;
 import co.edu.uniandes.ecos.statusquo.web.security.utils.ShiroToken;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -32,24 +33,28 @@ public class AutenticatorHttpFilter extends AuthenticatingFilter {
 
         System.out.println("1 " + credencialesHeader);
         System.out.println("2 " + authorizationHeader);
-        System.out.println("3 " + httpRequest.getPathInfo());
         if (credencialesHeader == null || credencialesHeader.length() == 0) {
             // Create an empty authentication token since there is no
             // Authorization header.
             return new ShiroToken("");
         }
 
-        String peticion = "";
-        Map map = request.getParameterMap();
-        for (Object key : map.keySet()) {
-            String keyStr = (String) key;
-            String[] value = (String[]) map.get(keyStr);
-            peticion += (String) key + "   :   " + Arrays.toString(value)+ "   ;   " ;
+        final StringBuffer peticionBuffer = new StringBuffer();
+        final Map<String, String[]> map = request.getParameterMap();
+        for (Entry<String, String[]> entry : map.entrySet()) {
+            peticionBuffer.append(entry.getKey());
+            peticionBuffer.append(':');
+            peticionBuffer.append(Arrays.toString(entry.getValue()));
+            peticionBuffer.append(';');
         }
 
-        if (!authorizationHeader.equals(new Sha512Hash(peticion, key, 1024).toString())) {
+        System.out.println("PETICION " + peticionBuffer.toString());
+
+        if (!authorizationHeader.equals(new Sha512Hash(peticionBuffer.toString(), key, 1024).toString())) {
             return new ShiroToken("");
         }
+
+        System.out.println("PASO");
 
         return new ShiroToken(credencialesHeader);
     }
