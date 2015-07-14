@@ -5,6 +5,8 @@
 package co.edu.uniandes.ecos.statusquo.web.security;
 
 import co.edu.uniandes.ecos.statusquo.web.security.utils.ShiroToken;
+import java.util.Arrays;
+import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -31,13 +33,21 @@ public class AutenticatorHttpFilter extends AuthenticatingFilter {
         System.out.println("1 " + credencialesHeader);
         System.out.println("2 " + authorizationHeader);
         System.out.println("3 " + httpRequest.getPathInfo());
-        if (authorizationHeader == null || authorizationHeader.length() == 0) {
+        if (credencialesHeader == null || credencialesHeader.length() == 0) {
             // Create an empty authentication token since there is no
             // Authorization header.
             return new ShiroToken("");
         }
 
-        if (!authorizationHeader.equals(new Sha512Hash(httpRequest.getPathInfo(), key, 1024).toString())) {
+        String peticion = "";
+        Map map = request.getParameterMap();
+        for (Object key : map.keySet()) {
+            String keyStr = (String) key;
+            String[] value = (String[]) map.get(keyStr);
+            peticion += (String) key + "   :   " + Arrays.toString(value)+ "   ;   " ;
+        }
+
+        if (!authorizationHeader.equals(new Sha512Hash(peticion, key, 1024).toString())) {
             return new ShiroToken("");
         }
 
