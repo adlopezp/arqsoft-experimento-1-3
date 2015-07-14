@@ -58,6 +58,7 @@ public class LoginController {
 
     public void setPassword(String password) {
         this.password = new Sha512Hash(password, key, 1024).toString();
+        System.out.println("PASS " + password);
     }
 
     public boolean isRemember() {
