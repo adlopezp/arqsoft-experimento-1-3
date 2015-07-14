@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dataTable id="tablaEpisodios" var="episodio" value="#{pacienteController.pacienteResult.episodios}"
+		rendered="#{pacienteController.pacienteResult.episodios.size() > 0}">
+		<p:column headerText="Id">
+	        <h:outputText value="#{episodio.id}" />
+    	</p:column>
+    	
+    	<p:column headerText="Fecha">
+	        <h:outputText value="#{episodio.fecha}" >
+	        	<f:convertDateTime pattern="dd-MMM-yyyy HH:mm"/>
+	        </h:outputText>
+    	</p:column>
+    	
+    	<p:column headerText="Actividades">
+	        <h:outputText value="#{episodio.actividades}"/>
+	        	
+    	</p:column>
+    	
+    	<p:column headerText="Medicamentos">
+	        <h:outputText value="#{episodio.medicamentos}"/>
+    	</p:column>
+    	
+    	<p:column headerText="Nivel de dolor">
+	        <h:outputText value="#{episodio.nivelDolor}"/>
+    	</p:column>
+    	
+    	<p:column headerText="Patrones de sueño">
+	        <h:outputText value="#{episodio.patronesSueno}"/>
+    	</p:column>
+    	
+	</p:dataTable>
+	
+</ui:composition>
